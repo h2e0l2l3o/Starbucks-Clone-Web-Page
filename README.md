@@ -106,3 +106,53 @@
       </header>
 
       ```
+## BEM (Block Element Modifier)
+* **Html 클래스 속성의 작명법**
+* **요소__일부분**: **underscore(Lodash) 기호로 요소의 일부분을 표시**
+* **요소--상태: Hyphen(Dash) 기호로 요소의 상태를 표시**
+  
+  <img width="410" alt="image" src="https://github.com/user-attachments/assets/0a70ecd8-0f45-4bd1-a148-7e3f3f01f8ed">
+
+## [Lodash](https://lodash.com/)
+* 다양한 유틸리티 함수들을 제공하는 자바스크립트 라이브러리.
+* 특히 배열, 객체, 문자열, 숫자 등의 데이터 처리 시 유용.
+* Lodash의 주요 기능
+  + 배열 및 객체 처리: 배열과 객체의 깊은 복사, 병합, 필터링, 맵핑 등을 손쉽게 처리할 수 있습니다.
+  + 유틸리티 함수: 함수의 지연 실행, 클로저, 함수 조합 등의 기능을 제공합니다.
+  + 성능 최적화: 복잡한 데이터 구조를 다룰 때 성능을 높이기 위한 최적화 기능을 제공합니다.
+  + 코드 가독성 향상: 코드의 가독성을 높여 개발 및 유지보수에 용이합니다.
+
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
++ html에 script 태그 전에 추가해주고 사용.
+
+### **Lodash의 의미**
+* **"Lodash"라는 이름은 원래 Underscore.js라는 비슷한 목적을 가진 라이브러리에서 유래**되었습니다. **Lodash는 Underscore.js의 기능을 확장하고 성능을 개선한 라이브러리**입니다. **"Lo-"는 로우(low, 낮은) 레벨**의 의미를, **"dash"는 "underscore"의 _와 관련된 의미**를 가질 수 있습니다. 이 라이브러리는 **"underscore"의 기능을 강화하거나 대체한다는 의미**를 가지고 있습니다
+
+```
+const _ = require('lodash');
+
+let array = [1, 2, 3, 4, 5];
+let evens = _.filter(array, function(num) {
+    return num % 2 === 0;
+});
+
+console.log(evens); // [2, 4]
+```
+  * 이 예시에서 lodash의 filter 함수는 배열에서 짝수만을 필터링하여 반환
+  * [Lodash API](https://lodash.com/docs/4.17.15)
+  * [Lodash throttle](https://lodash.com/docs/4.17.15#throttle)
+      + 'throttle'은 연속된 이벤트가 발생할 때, 이벤트가 발생할 수 있는 횟수를 제한해서 자원을 효율적으로 사용하도록 돕는다.
+      + **throttle(스로틀)은 자바스크립트에서 주로 사용되는 성능 최적화 기법으로, 특정 함수가 일정 시간 동안 여러 번 호출되더라도 그 중 한 번만 실행되도록 제한하는 방법**
+      + 특히, 이벤트 헨들러가 짧은 시간 동안 여러번 호출될 수 있는 상황에서 유용.
+  * 참고:
+      + **Throttle과 debounce 비교**
+        + Throttle: 주기적으로 함수를 실행합니다. 즉, 이벤트가 반복해서 발생하더라도 정해진 시간마다 한 번씩 실행됩니다.
+        + Debounce: 이벤트가 더 이상 발생하지 않을 때까지 기다린 후, 일정 시간이 지나면 함수를 실행합니다. 즉, 이벤트 발생이 멈출 때까지 실행을 지연시킵니다.
+       
+        + 언제 사용하나요?
+          + 스크롤 이벤트: 사용자가 페이지를 스크롤할 때.
+          + 윈도우 리사이즈 이벤트: 사용자가 브라우저 창 크기를 조정할 때.
+          + 마우스 움직임 이벤트: 사용자가 마우스를 움직일 때.
+    
