@@ -235,3 +235,88 @@ console.log(evens); // [2, 4]
 * **일반적인 유튜브나 비메오 영상들은 기본적으로 가로 사이즈가 16, 세로 사이즈가 9인 16:9 비율로 영상이 제공됨.**
 * 즉, padding-top에 **56.25%** 를 입력하면 컨테이너의 가로 너비가 얼마든지 간에 항상 16대 9 비율로 요소가 출력됨.
 * **FHD(Full High Definition): 화면 해상도** -> 1920 x 1080 픽셀의 해상도를 갖음.(1080p)// 16:9 비율.
+
+## YOUTUBE API
+* [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference?hl=ko) 를 통해 YouTube 동영상 제어 가능.
+
+```
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'M7lc1UVf-VE',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+  </body>
+</html>
+```
+
+* id ="player" 부분이 실제로 유튜브가 출력되는 요소임.
+* tag라는 변수에 script 태그를 생성해서 그것을 tag에 할당함.
+* tag.src에 외부 자바스크립트 라이브러리 할당됨.
+* script 중에 제일 첫번쨰 요소를 firstScriptTag라는 변수에 할당해주고, 그것의 부모요소를 찾아서 tag를 삽입해줌.
+* 외부 API에 있던 함수 onYouTubeIframeAPIReady() 사용.(이름 같게 사용해야함.)
+
+### [플레이어 매개변수(playerVars)](https://developers.google.com/youtube/player_parameters.html?playerVersion=HTML5&hl=ko#Parameters)
+* 유튜브 iframe player API사용시 사용 가능한 매개변수 옵션.
+
+## 랜덤 숫자 생성 함수
+```
+function random(min, max){
+  return parseFloat((Math.random() * (max -min) + min).toFixed(2))
+}
+// 범위 랜덤 함수(소수점 2자리까지)
+// toFixed()는 숫자를 고정 소수점 형식으로 변환하는 메서드. 여기서는 소수점 이하 2자리까지 잘라냄.
+// parseFloat()은 문자열을 부동소수점 숫자로 변환하는 함수.(string을 float으로)
+```
+* min, max를 넣어 원하는 범위 안에 있는 랜덤한 숫자 만들기 가능.
+
+## GSAP(The GreenSock Animation Platform)
+* **JS 기반 애니메이션 라이브러리, 웹페이지에서 복잡하고 매끄러운 애니메이션을 만들 수 있게함.**
+* gsap.to(요소, 지속시간, 옵션);
+* [gsap.to 속성들](https://gsap.com/docs/v3/GSAP/gsap.to()/)
+*[GSAP Easing 함수](https://gsap.com/docs/v3/v2/Easing)
