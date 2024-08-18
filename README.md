@@ -155,4 +155,83 @@ console.log(evens); // [2, 4]
           + 스크롤 이벤트: 사용자가 페이지를 스크롤할 때.
           + 윈도우 리사이즈 이벤트: 사용자가 브라우저 창 크기를 조정할 때.
           + 마우스 움직임 이벤트: 사용자가 마우스를 움직일 때.
+
+## 스타벅스 Swiper center에 보여지는 이미지
+* 정가운데에 보여지는 이미지는 swiper-slide-active라는 이름의 클래스를 갖게 됨.
+  
+  <img width="943" alt="image" src="https://github.com/user-attachments/assets/12605817-3558-44e7-b948-9200b103fd53">
+
+* 추가된 클래스 이름을 이용해서 정중앙에 보이는 슬라이드는 선명하게 그리고, 지나가거나 다음으로 보여질 슬라이드들은 흐릿하게 css로 표현 가능.
+
+```
+.notice .promotion .swiper-slide{
+  opacity: .2;
+}
+
+.notice .promotion .swiper-slide-active {
+  opacity: 1;
+}
+```
     
+## swiper-pagination 
+* swiper-pagination은 기본적으로 css 스타일이 정해져있음. 
+* 개발자 도구로 보면 swiper-pagination에 기본으로 지정된 스타일 css 코드를 볼 수 있음.
+
+  <img width="451" alt="image" src="https://github.com/user-attachments/assets/2d279cd1-46f1-4abe-a578-9ce89ae6c159">
+
+* 그래서 특정하게 위치값을 굳이 지정하지 않아도 span태그로 추가된 swiper-pagination-bullet 클래스는 inline-box임으로, 기본으로 추가된 스타일 코드 떄문에 (text-align: center) 중앙에 오게됨.
+
+  <img width="443" alt="image" src="https://github.com/user-attachments/assets/e4698c2e-b280-443b-83e4-3b2e38f28ac3">
+
+* 마찬가지로 swiper-pagination-bullet-active라는 클래스도 생김...
+* swiper 사용할 때 이렇게 각각의 기본 css 스타일을 바꾸고 싶다면 페이지를 직접 로드해서 개발자 도구 열어서 클래스 이름 확인 후 그 클래스 이름을 사용해서 css 코드 변경해주면 됨.
+
+## 가로 세로 너비 비율 2:1인 요소 만들기
+
+```
+<div class="container">
+  <div class="item"></div>
+</div>
+```
+
+```
+.container{
+  width: 100px;
+  background-color: royalblue;
+}
+
+.container .item{
+  width: 100%;
+  height: 0;
+  padding-top: 50%;
+}
+```
+
+* 원래는 height가 0이기 떄문에 요소가 보이지 않지만, padding-top에 50%를 입력하면 %는 부모요소의 width를 기준으로 지정됨으로, item의 부모요소인 container의 width 100px의 반만큼을 padding-top 값으로 갖게 됨으로, 위로 그만큼 채워져, 가로 세로 비율이 2:1인 사이즈의 요소가 보이게됨.
+
+```
+.container{
+  width: 100px;
+  padding-top: 50%;
+  background-color: royalblue;
+}
+
+.container .item{
+  width: 100%;
+  height: 0;
+  padding-top: 50%;
+  background-color: orange;
+}
+```
+
+<img width="236" alt="image" src="https://github.com/user-attachments/assets/33f051ef-4c90-48c5-9cd7-59e4d07177ca">
+
+
+* 위의 이미지처럼, container에 padding-top 50%를 부여하면 전체 보여지는 요소가 뷰포트(container의 부모요소)의 절반 만큼이 높이로 채워져 보임.
+
+* **즉, 이렇게 부모요소와 자식 요소 하나를 가지고서 몇대 몇 비율의 가로 너비 세로너비를 가지고 있는 요소의 크기를 만들어 낼 수 있음**
+* 이런 방법은 유튜브나 비메오 영상을 삽일할 때 유용하게 쓸 수 있음.
+* **비메오(vimeo) 영상**: 비메오라는 비디오 공유 플랫폼에 업로드된 동영상을 의미합니다. 비메오는 고화질 비디오 콘텐츠를 제작, 공유, 스트리밍할 수 있는 플랫폼으로, 특히 창작자, 예술가, 영화 제작자 등 전문적인 비디오 콘텐츠 제작자들이 자주 사용하는 서비스.
+* **일반적인 유튜브나 비메오 영상들은 기본적으로 가로 사이즈가 16, 세로 사이즈가 9인 16:9 비율로 영상이 제공됨.**
+* 즉, padding-top에 **56.25%** 를 입력하면 컨테이너의 가로 너비가 얼마든지 간에 항상 16대 9 비율로 요소가 출력됨.
+* **FHD(Full High Definition): 화면 해상도** -> 1920 x 1080 픽셀의 해상도를 갖음.(1080p)// 16:9 비율.
