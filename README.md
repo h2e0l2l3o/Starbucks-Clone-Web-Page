@@ -333,4 +333,81 @@ function random(min, max){
   + 성능이 중요한 경우: 애니메이션이 많은 웹 페이지에서 성능을 유지해야 할 때.
   + 정교한 제어가 필요한 경우: 타임라인을 사용하여 애니메이션의 순서나 타이밍을 세밀하게 조절할 때.
 
+## 3D 애니메이션
+* transform (rotateY함수), perspective, backface-visibility 속성 등을 이용해 3D 애니메이션을 css로 구현 가능.
+* 예시:
+```
+<div class="container">
+  <div class="item front">앞</div>
+  <div class="item back">뒤</div>
+</div>
+```
+```
+.container{
+  width: 100px;
+  height: 100px;
+  background-color: royalblue;
+  perspective: 300px;
+}
 
+.container .item{
+  width: 100px;
+  height: 100px;
+  border: 4px solid red;
+  box-sizing: border-box;
+  font-size: 60px;
+  backface-visibility: hidden;
+  transition: 1s;
+}
+
+.container:hover .item.front{
+  position: absolute;
+  transform: rotateY(180deg);
+}
+.container .item.front{
+  position: absolute;
+  transform: rotateY(0deg);
+/* 굳이 0도로 지정하지 않아도 되지만, 명시적으로 넣어주는 것이 좋음. 구형 브라우저에서는 필요한 코드일수도...  */
+}
+.container .item.back{
+  position: absolute;
+  transform: rotateY(-180deg);
+}
+.container:hover .item.back{
+  position: absolute;
+  transform: rotateY(0deg);
+  
+}
+```
+
+## 스크롤 위치 계산 애니메이션(ScrollMagic)
+* [ScrollMagic cdnjs.com](https://cdnjs.com/libraries/ScrollMagic)
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
+*  **ScrollMagic이란?**
+  + ScrollMagic은 **웹 페이지에서 스크롤 기반의 애니메이션을 쉽게 구현**할 수 있도록 도와주는 **JavaScript 라이브러리**. 이 라이브러리는 **특정 요소가 스크롤로 인해 뷰포트에 들어올 때, 또는 특정 위치에 도달할 때 특정 동작(애니메이션, 클래스 추가 등)을 트리거**할 수 있게 해줌.
+
+```
+const spyEls = document.querySelectorAll('section.scroll-spy');
+
+spyEls.forEach(function (spyEl) {
+  new ScrollMagic
+    .Scene({
+      triggerElement: spyEl, // 감시할 요소를 지정
+      triggerHook: .8 // 트리거 지점 설정 (뷰포트의 80% 지점)
+    })
+    .setClassToggle(spyEl, 'show') // 클래스를 토글(상태를 전환)
+    .addTo(new ScrollMagic.Controller()) // 컨트롤러에 이 씬을 추가
+});
+```
+*이 코드는 section.scroll-spy라는 클래스를 가진 모든 섹션을 감시하여, 해당 섹션이 스크롤될 때 특정 동작을 수행하게함.
+
+* **Scene**은 스크롤 이벤트에 반응하는 개별 단위. 특정 요소가 스크롤을 통해 뷰포트의 지정된 위치에 도달했을 때(또는 벗어났을 때) 어떤 행동을 취할지 정의.
+* **triggerElement**: Scene이 감시할 HTML 요소를 지정. 이 요소가 특정 위치에 도달할 때 설정된 동작이 실행.
+* **triggerHook**: 이 값은 0과 1 사이의 소수로, 뷰포트 내에서 트리거가 발생할 위치를 지정. 0은 뷰포트의 맨 위, 1은 뷰포트의 맨 아래를 의미하며, 여기서 0.8은 뷰포트의 80% 지점에서 트리거가 발생함을 뜻함.
+* **setClassToggle(요소, 클래스 이름)**: setClassToggle() 메서드는 Scene이 트리거될 때 지정된 요소에 특정 클래스를 추가하거나 제거할 수 있음. 이 메서드에는 두 개의 인자가 필요.
+  + 첫 번째 인자: 클래스를 추가/제거할 요소.
+  + 두 번째 인자: 토글할 클래스 이름.
+* **ScrollMagic.Controller()**: 여러 Scene을 관리하고 제어함.
+* **addTo(ScrollMagic.Controller()):**: 생성된 Scene을 이 컨트롤러에 추가하여 스크롤 이벤트와 연결되도록함. 이로 인해 스크롤할 때마다 설정한 Scene이 실행됨.
