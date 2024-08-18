@@ -411,3 +411,15 @@ spyEls.forEach(function (spyEl) {
   + 두 번째 인자: 토글할 클래스 이름.
 * **ScrollMagic.Controller()**: 여러 Scene을 관리하고 제어함.
 * **addTo(ScrollMagic.Controller()):**: 생성된 Scene을 이 컨트롤러에 추가하여 스크롤 이벤트와 연결되도록함. 이로 인해 스크롤할 때마다 설정한 Scene이 실행됨.
+
+<img width="362" alt="image" src="https://github.com/user-attachments/assets/38c73227-47b1-49b2-9d39-0a5410efb2ac">
+
+* 위 이미지처럼 미리 지정한 scroll 위치를 지나게되면 scroll-spy라는 클래스 이름을 가진 요소들에 show라는 이름의 클래스가 추가되는 것을 알 수 있음.
+
+## HTML 특수기호
+
+<img width="458" alt="image" src="https://github.com/user-attachments/assets/4bea98f8-b91f-4e02-8d88-7bc5d72afd8b">
+
+* html에서 쓰이는 특수기호들을 확인하기위한 링크: [html entities](https://www.w3schools.com/html/html_entities.asp)
+
+  
