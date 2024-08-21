@@ -1,0 +1,417 @@
+/* COMMON */
+body {
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #333;
+  /* height: 3000px; */
+}
+
+/* 기본적으로 이미지는 인라인요소고, 인라인 요소는 모두 baseline을 가지고 있음. 알파벳을 쓸때 y나 j같은 것들은 아래에 공간을 더 사용함. 
+즉, baseline을 위한 공간 때문에 이미지는 보통 아래에 작은 공간이 생김.
+*/
+/* 이러한 불필요한 공간을 없애기 위해 img 태그에 display를 block요소로 추가해줌. */
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  /* link가 자동으로 밑줄 갖는 거 방지*/
+}
+
+.inner {
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+.btn {
+  width: 130px;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: block;
+  transition: 0.4s;
+}
+.btn:hover {
+  background-color: #333;
+  color: #fff;
+}
+.btn.btn--reverse {
+  background-color: #333;
+  color: #fff;
+}
+.btn.btn--reverse:hover {
+  background-color: transparent;
+  color: #333;
+}
+.btn.btn--brown {
+  color: #592b18;
+  border-color: #592b18;
+}
+.btn.btn--brown:hover {
+  color: #fff;
+  background-color: #592b18;
+}
+.btn.btn--gold {
+  color: #d9aa8a;
+  border-color: #d9aa8a;
+}
+.btn.btn--gold:hover {
+  color: #fff;
+  background-color: #d9aa8a;
+}
+.btn.btn--white {
+  color: #fff;
+  border-color: #fff;
+}
+.btn.btn--white:hover {
+  color: #333;
+  background-color: #fff;
+}
+/* 화면을 스크롤했을때 ScrollMagic에 의해 생겨난 show 클래스를 기반으로해서
+특정 화면 위치를 지날때 양쪽에서 이미지가 생겨나는 것처럼 보이게 애니메이션 구현 */
+.back-to-position {
+  opacity: 0;
+  transition: 1s;
+}
+.back-to-position.to-right {
+  transform: translateX(-150px);
+}
+.back-to-position.to-left {
+  transform: translateX(150px);
+}
+.show .back-to-position {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* 스크롤시 각 섹션 안에 있는 요소들의 애니메이션이 동시에 바로 실행되는 것보다 
+이미지먼저, 그다음 text, 그다음 버튼... 이렇게 순차적으로 생성되게 만들고싶음.
+이것을 위해 delay 스타일을 지정해주고 각각을 해당 요소들에 넣어주기. */
+.show .back-to-position.delay-0 {
+  transition-delay: 0s;
+}
+.show .back-to-position.delay-1 {
+  transition-delay: 0.3s;
+}
+.show .back-to-position.delay-2 {
+  transition-delay: 0.6s;
+}
+.show .back-to-position.delay-3 {
+  transition-delay: 0.9s;
+}
+/* Common */
+
+/* Header */
+header {
+  background-color: #f6f5f0;
+  border-bottom: 1px solid #c8c8c8;
+  /* position: relative; */
+  position: fixed;
+  top: 0;
+  /* position:relative는 블록 요소면 그 특징대로 가로 너비가 최대한 늘어나지만,
+  position: absolute 혹은 fixed 를 사용하면 가로 너비가 최소한으로 줄어듬 */
+  /* 그래서 position: fixed혹은 absolute일때 width:100%사용하면 가로 최대 사용가능 */
+  width: 100%;
+  z-index: 9;
+}
+
+/* 위에서 공통부분인 inner를 정의했고, header .inner에 적용한 값은 header 안에 있는 자식선택자 inner에만 적용되어야하기 때문에 > (자식 선택자) 붙여줌.*/
+header > .inner {
+  height: 120px;
+  /* 여기서 inner의 역할은 가로 사이즈를 지정, margin 너비를 auto로 주면서 넣으려는 요소들을 가운데 정렬 시켜줌. */
+  /* 즉, 이 경우에는 inner내부에 로고나 다른 내용들을 너비 1100px 안에 모아서 보여줌. */
+}
+
+header .logo {
+  height: 75px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  /* display: none; */
+}
+
+header .sub-menu {
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+header .sub-menu ul.menu {
+  font-family: Arial, sans-serif;
+  display: flex;
+}
+
+header .sub-menu ul.menu li {
+  position: relative;
+}
+
+header .sub-menu ul.menu li::before {
+  content: "";
+  /* display: block; */
+  /* position: absolute혹은 fixed는 display를 block요소로 자동으로 만들어주기 떄문에 굳이 입력할 필요 없음. */
+  width: 1px;
+  /* 1px 너비로 메뉴 사이시이마다 중간 선 표현 */
+  height: 12px;
+  background-color: #e5e5e5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+/*content가 없으면 before라는 가상요소선택자는 만들어지지 않음. */
+/* 가상 요소는 인라인 요소임*/
+
+header .sub-menu ul.menu li:first-child::before {
+  display: none;
+  /* 원래 sign in 앞에 구분선이 있었는데, 그 부분 없애고 싶음. none이용. */
+}
+
+header .sub-menu ul.menu li a {
+  display: block;
+  font-size: 12px;
+  padding: 11px 16px;
+  color: #656565;
+  /* 사용자가 클릭했을 때 충분한 공간 영역을 갖는 링크 영역을 갖게 하고 싶음.
+  그럴 때 padding을 이용해 사용자가 클릭할 수 있는 영역을 넓혀줄수 있음.  */
+  /* 하지만, a 태그 즉, 링크를 갖는 애들은 인라인 요소임. 즉, padding을 줄 수 없음. 그래서 display:block으로 바꿔줌. */
+}
+
+header .sub-menu ul.menu li a:hover {
+  color: #000;
+}
+
+header .sub-menu .search {
+  height: 34px;
+  position: relative;
+}
+
+header .sub-menu .search input {
+  width: 36px;
+  height: 34px;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+  outline: none;
+  /* 선택했을 때 생기는 outline제거함*/
+  background-color: white;
+  transition: width 0.4s;
+  font-size: 12px;
+}
+
+header .sub-menu .search input:focus {
+  width: 190px;
+  border-color: #669900;
+}
+header .sub-menu .search .material-icons {
+  height: 24px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 5px;
+  transition: 0.4s;
+}
+
+/* 참고로 js에서 focus될때 search에 focused class가 추가되는 개념이라 .search.focused(붙여서씀)처럼 일치선택자여야함.*/
+header .sub-menu .search.focused .material-icons {
+  opacity: 0;
+}
+
+header .main-menu {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+}
+
+header .main-menu .item {
+}
+
+header .main-menu .item .item__name {
+  padding: 10px 20px 34px 20px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+/* 여기서 item에 hover를 두어야 name과 contents에 hover가 적용됨. */
+header .main-menu .item:hover .item__name {
+  background-color: #2c3a29;
+  color: #669900;
+  border-radius: 6px 6px 0 0;
+}
+
+header .main-menu .item .item__contents {
+  width: 100%;
+  position: fixed;
+  /* position:fixed를 통해 뷰표트를 기준으로 배치하겠다고 선언. */
+  /* top, bottom 속성을 사용하지 않아 수직 위치 값이 없다면, 요소가 가진 원래 위치를 그대로 사용하게됨. */
+  /* 만약 position:absolute; 를 사용한다면, 
+  left:0으로 둬도, 위치상 부모요소를 기준으로 하므로 화면의 뷰표트 좌우 끝까지 늘어날 수 없게됨. */
+  left: 0;
+  display: none;
+}
+
+header .main-menu .item:hover .item__contents {
+  display: block;
+}
+
+header .main-menu .item .item__contents .contents__menu {
+  background-color: #2c2a29;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul {
+  display: flex;
+  padding: 20px 0;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li {
+  width: 220px;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li h4 {
+  padding: 3px 0 12px 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li ul li {
+  padding: 5px;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li ul li:hover {
+  color: #669900;
+}
+
+header .main-menu .item .item__contents .contents__texture {
+  padding: 26px 0;
+  font-size: 12px;
+  background-image: url("../images/main_menu_pattern.jpg");
+  /* 경로를 이전으로 한 번 나가야 images 폴더에 접근 가능함으로 .. 사용*/
+}
+
+header .main-menu .item .item__contents .contents__texture h4 {
+  color: #999;
+  font-weight: 700;
+}
+
+header .main-menu .item .item__contents .contents__texture p {
+  color: #669900;
+  margin: 4px 0 14px;
+}
+
+header .badges {
+  position: absolute;
+  top: 132px;
+  right: 12px;
+}
+header .badges .badge {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0 0.15);
+  cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+  background-color: #272727;
+  border-top: 1px solid #333;
+}
+footer .inner {
+  padding: 40px 0 60px 0;
+}
+footer .menu {
+  display: flex;
+  justify-content: center;
+}
+footer .menu li {
+  position: relative;
+}
+footer .menu li a {
+  color: #ccc;
+  font-size: 12px;
+  font-weight: 700;
+  /* a tag는 inline임으로 block으로 바꿔야 padding적용 가능 */
+  display: block;
+  padding: 15px;
+}
+
+footer .menu li a.green {
+  color: #669900;
+}
+/* 각 글자 사이 사이에 가운데 점을 추가하고 싶은데 이것을 위해 html에서 하나하나 요소 추가하기 번거로움 */
+/* 그래서 내용을 추가할 수 있는 가상선택자 before이용 */
+/* before가상요소선택자로 추가된 요소는 absolute을 position으로 갖기 위해
+부모요소인 li를 relative로 바꿔줌. */
+footer .menu li::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  background-color: #555;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1px;
+  margin: auto;
+  /* 가상선택자는 inline요소임으로 block으로 바꿔주기
+  하지만, position:absolute, fixed는 자동으로 그 요소를 block으로 바꿔줌으로 display:block필요없음. */
+}
+/* 참고로 li 앞에 요소가 붙나(before) 뒤에 붙나(after) 보이는 것은 똑같음. 왜냐하면, 두 위치 모두 a 태그 앞이기 때문 */
+/* 하지만 footer .menu li a:before이거나 after이면 두개의 위치는 확연히 달라짐. */
+
+footer .menu li:last-child::before {
+  display: none;
+}
+
+footer .btn-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+footer .btn-group .btn {
+  font-size: 12px;
+  margin-right: 10px;
+}
+footer .btn-group .btn:last-child {
+  margin-right: 0;
+}
+footer .info {
+  margin-top: 30px;
+  text-align: center;
+}
+
+footer .info span {
+  margin-right: 20px;
+  color: #999;
+  font-size: 12px;
+}
+footer .info span:last-child {
+  margin-right: 0;
+}
+footer .copyright {
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 12px;
+}
+/* img 요소가 display: block 이고, margin: 0 auto인 경우, width 속성 없이도 가운데 정렬 가능. 
+즉, 별도로 가로 사이즈를 넣을 필요 없음.*/
+footer .logo {
+  margin: 30px auto 0;
+}
