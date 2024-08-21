@@ -1,6 +1,5 @@
 # Starbucks-Clone-Web-Page
-* 출처: fastcampus 프로트엔드 온라인 강의(박영웅 강사님)
-* https://github.com/ParkYoungWoong/starbucks-vanilla-app
+* [클론코딩으로 내가 만든 스탑벅스 웹사이트(netlify로 배포)](https://starclonebucks.netlify.app/)
 
 ## 오픈 그래프(The Open Graph protocol)
 * 웹페이지가 소셜 미디어(카톡, 페이스북 등)으로 공유될 때 보여지는 정보.
@@ -422,4 +421,8 @@ spyEls.forEach(function (spyEl) {
 
 * html에서 쓰이는 특수기호들을 확인하기위한 링크: [html entities](https://www.w3schools.com/html/html_entities.asp)
 
-  
+## 출처
+
+* 출처: fastcampus 프로트엔드 온라인 강의(박영웅 강사님)
+* https://github.com/ParkYoungWoong/starbucks-vanilla-app
+
