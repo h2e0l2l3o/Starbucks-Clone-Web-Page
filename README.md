@@ -1,5 +1,5 @@
 # Starbucks-Clone-Web-Page
-* [클론코딩으로 내가 만든 스탑벅스 웹사이트(netlify로 배포)](https://starclonebucks.netlify.app/)
+* [클론코딩으로 내가 만든 스타벅스 웹사이트(netlify로 배포)](https://starclonebucks.netlify.app/)
 
 ## 오픈 그래프(The Open Graph protocol)
 * 웹페이지가 소셜 미디어(카톡, 페이스북 등)으로 공유될 때 보여지는 정보.
