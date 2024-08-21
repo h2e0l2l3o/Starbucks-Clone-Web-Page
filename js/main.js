@@ -1,21 +1,3 @@
-// 돋보기 모양을 클릭했을 때에도 focus를 적용시키고 싶음. 이부분은 css에서 관리하기 어려우니 js로 코드 작성
-const searchEl = document.querySelector(".search");
-const searchInputEl = document.querySelector("input");
-
-searchEl.addEventListener("click", function () {
-  searchInputEl.focus();
-});
-
-searchInputEl.addEventListener("focus", function () {
-  searchEl.classList.add("focused");
-  searchInputEl.setAttribute("placeholder", "통합검색"); //속성 지정
-});
-
-searchInputEl.addEventListener("blur", function () {
-  searchEl.classList.remove("focused");
-  searchInputEl.setAttribute("placeholder", ""); //focus에 반대: 클래스 다시 지우고, 빈캄으로 남겨두기.
-});
-
 // 화면 우측에 있는 배지들을 일정 스크롤을 했을 때 자동으로 서서히 사라지게 만드는 기능 추가.
 const badgeEl = document.querySelector("header .badges");
 const toTopEl = document.querySelector("#to-top");
@@ -181,8 +163,3 @@ spyEls.forEach(function (spyEl) {
     .addTo(new ScrollMagic.Controller());
 });
 // section을 태그 값으로 갖고 scroll-spy를 클래스 이름으로 갖는 요소들은 스크롤하다 지정된 특정 scene(0.8)을 지나면 show라는 클래스가 추가됨
-
-// 연도를 매년 자동으로 바꿔주기 위한 기능 추가.
-const thisYear = document.querySelector(".this-year");
-thisYear.textContent = new Date().getFullYear(); //현재 날짜 정보(Date())
-// getFullYear()은 현재 연도 정보줌
